@@ -21,13 +21,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static int k=0;
 
-    private  int[] TAB_TITLES;
+    private  String[] TAB_TITLES;
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, ArrayList<Integer> titles) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, ArrayList<String> titles) {
         super(fm);
         mContext = context;
-        TAB_TITLES=new int[titles.size()];
+        TAB_TITLES=new String[titles.size()];
 
         for(int i=0;i<titles.size();i++)
         {
@@ -37,6 +37,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
     }
+
+
+
+
+
 
 
     @Override
@@ -50,8 +55,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 
-        //return mContext.getResources().getString(TAB_TITLES[position]);
-        return "TAB"+position;
+        return TAB_TITLES[position];
+        //return TAB_TITLES[position];
 
     }
 

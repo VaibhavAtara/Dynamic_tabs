@@ -1,11 +1,13 @@
 package com.example.dynamic_tabs.ui.main;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dynamic_tabs.Database_test;
 import com.example.dynamic_tabs.R;
 import com.example.dynamic_tabs.Book;
 import com.example.dynamic_tabs.RecyclerViewAdapter;
@@ -30,8 +33,8 @@ public class PlaceholderFragment extends Fragment {
     Button add;
     RecyclerViewAdapter recyclerViewAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private PageViewModel pageViewModel;
+    private static int ind;
+    static View root;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -44,42 +47,28 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-
-
-        //**************************
-
-
-        //********************
-
-
-
-
-
-        pageViewModel.setIndex(index);
     }
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
-        /*final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        //**********************
+        root = inflater.inflate(R.layout.fragment_main, container, false);
+
         add = (Button)root.findViewById(R.id.add);
+        Toast.makeText(root.getContext(),""+ind,Toast.LENGTH_SHORT).show();
+        Database_test data_test=new Database_test(root.getContext());
+
+        int tab_index=getArguments().getInt(ARG_SECTION_NUMBER);
+        Cursor get_room_name=data_test.fetch_room_name(tab_index);
+        get_room_name.moveToNext();
+        String room_name=get_room_name.getString(1);
+        Toast.makeText(root.getContext(),""+tab_index,Toast.LENGTH_LONG).show();
+
+
 
         mydata = new ArrayList<>();
-        mydata.add(new Book("1","1","1",R.drawable.b1));
+        //mydata.add(new Book(room_name,""+ind,"1",R.drawable.b1));
         mydata.add(new Book("2","2","2",R.drawable.b2));
         mydata.add(new Book("3","3","3",R.drawable.b3));
         mydata.add(new Book("4","4","4",R.drawable.b4));
@@ -103,18 +92,9 @@ public class PlaceholderFragment extends Fragment {
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
-
-
-
-
-
-
-//*****************************
-
-
-
-
-
         return root;
     }
+
+
+
 }
