@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.dynamic_tabs.MainActivity;
 import com.example.dynamic_tabs.R;
 
 import java.util.ArrayList;
@@ -21,18 +22,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static int k=0;
 
-    private  String[] TAB_TITLES;
+    private  ArrayList<String> TAB_TITLES=new ArrayList<>();
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm, ArrayList<String> titles) {
         super(fm);
         mContext = context;
-        TAB_TITLES=new String[titles.size()];
+        if(titles!=null) {
+            for (int i = 0; i < titles.size(); i++) {
+                TAB_TITLES.add(titles.get(i));
 
-        for(int i=0;i<titles.size();i++)
-        {
-            TAB_TITLES[i]=titles.get(i);
-
+            }
         }
 
 
@@ -54,15 +54,22 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-
-        return TAB_TITLES[position];
-        //return TAB_TITLES[position];
-
+        return TAB_TITLES.get(position);
     }
 
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return TAB_TITLES.length;
+        if(TAB_TITLES==null)
+            return 0;
+        return TAB_TITLES.size();
+    }
+    public void add_tab(String tab_title)
+    {
+        if(TAB_TITLES!=null)
+        {
+            TAB_TITLES.add(tab_title);
+            notifyDataSetChanged();
+        }
     }
 }
