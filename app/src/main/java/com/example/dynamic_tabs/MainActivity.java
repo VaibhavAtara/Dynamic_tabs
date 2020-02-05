@@ -11,16 +11,22 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,7 +35,7 @@ import com.example.dynamic_tabs.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends Fragment {
     TabLayout tabs;
     ViewPager viewPager;
     String tab_name;
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
     Toolbar toolbar;
 
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -77,21 +83,21 @@ public class MainActivity extends AppCompatActivity  {
                         .setAction("Action", null).show();
             }
         });
-    }
+    }*/
 //##########################################################################################################
-   public void create_tabs()
+   public void create_tabs(View view)
    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final Context context=getApplicationContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        //final Context context=getApplicationContext();
         builder.setTitle("Title");
-        final EditText input = new EditText(this);
+        final EditText input = new EditText(getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT );
         builder.setView(input);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             tab_name= input.getText().toString();
-            Database_test data_test=new Database_test(getApplicationContext());
+            Database_test data_test=new Database_test(getContext());
             data_test.create_room(tab_name,sectionsPagerAdapter.getCount()+1);
             sectionsPagerAdapter.AddFragment(PlaceholderFragment.newInstance(sectionsPagerAdapter.getCount()+1),tab_name);
             viewPager.setAdapter(sectionsPagerAdapter);
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity  {
 
             viewPager.setCurrentItem(sectionsPagerAdapter.getCount()-1);
 
-            Toast.makeText(getApplicationContext(),"selected tab"+(sectionsPagerAdapter.getCount()-1),
+            Toast.makeText(getContext(),"selected tab"+(sectionsPagerAdapter.getCount()-1),
                     Toast.LENGTH_SHORT).show();
         }});
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -109,28 +115,133 @@ public class MainActivity extends AppCompatActivity  {
                 }
          });
         builder.show();
+       Toast.makeText(view.getContext(), "hello", Toast.LENGTH_SHORT).show();
    }
    //#####################################################################################################
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+
+    /*public boolean onCreateOptionsMenu(Menu menu) {
+        getContext().getMenuInflater().inflate(R.menu.menu,menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.add_device)
+        /*if(id==getContext().id.add_device)
             create_tabs();
 
         if(id==R.id.settings)
-            Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getContext(),"Setting",Toast.LENGTH_SHORT).show();
+        */
         return true;
     }
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main2);
+        View view = inflater.inflate(R.layout.activity_main,container,false);
+        toolbar = (Toolbar)view.findViewById(R.id.toolbar);
+       // getActivity().setSupportActionBar(toolbar);
+
+        //######################################################################
+
+        Button add_tabs=(Button)view.findViewById(R.id.create_tabs);
+
+        add_tabs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                //final Context context=getApplicationContext();
+                builder.setTitle("Title");
+                final EditText input = new EditText(getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT );
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tab_name= input.getText().toString();
+                        Database_test data_test=new Database_test(getContext());
+                        data_test.create_room(tab_name,sectionsPagerAdapter.getCount()+1);
+                        sectionsPagerAdapter.AddFragment(PlaceholderFragment.newInstance(sectionsPagerAdapter.getCount()+1),tab_name);
+                        viewPager.setAdapter(sectionsPagerAdapter);
+                        tabs.setupWithViewPager(viewPager);
+
+                        viewPager.setCurrentItem(sectionsPagerAdapter.getCount()-1);
+
+                        Toast.makeText(getContext(),"selected tab"+(sectionsPagerAdapter.getCount()-1),
+                                Toast.LENGTH_SHORT).show();
+                    }});
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getActivity().getSupportFragmentManager());
+        viewPager = view.findViewById(R.id.view_pager);
+
+        viewPager.setAdapter(sectionsPagerAdapter);
+        tabs = view.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
+        Database_test data_test=new Database_test(getContext());
+        Cursor all_rooms=data_test.fetch_all_rooms();
+        while(all_rooms.moveToNext())
+        {
+            tab_name= all_rooms.getString(1);
+            sectionsPagerAdapter.AddFragment(PlaceholderFragment.newInstance(sectionsPagerAdapter.getCount()+1),tab_name);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            tabs.setupWithViewPager(viewPager);
+
+            if(tab_name.equals("hall"))
+                data_test.insert_in_room("Anirudh","Good","Educational",R.drawable.b1,tab_name);
+            if(tab_name.equals("bedroom"))
+                data_test.insert_in_room("Vaibhav","Bad","abcd",R.drawable.b2,tab_name);
+        }
+
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        return view;
+    }
+
+
+
+
 }
 
 
