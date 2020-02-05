@@ -26,16 +26,12 @@ import com.example.dynamic_tabs.RecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class PlaceholderFragment extends Fragment {
     List<Book> mydata;
     Button add;
-    int index;
     RecyclerViewAdapter recyclerViewAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static int ind;
     private  int tab_index;
 
 
@@ -50,26 +46,18 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        tab_index=getArguments().getInt(ARG_SECTION_NUMBER);
-        tab_index = 1;
         if (getArguments() != null)
             tab_index = getArguments().getInt(ARG_SECTION_NUMBER);
-
-
-
         }
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        View root = inflater.inflate(R.layout.fragment_main, container, false);
         add = (Button)root.findViewById(R.id.add);
-        //Toast.makeText(root.getContext(),"Tab: "+tab_index,Toast.LENGTH_SHORT).show();
-       Database_test data_test=new Database_test(root.getContext());
-        String room_name="default";
+
+        Database_test data_test=new Database_test(root.getContext());
+        String room_name="";
         Cursor fetch_room_name=data_test.fetch_room_name(tab_index);
         if(fetch_room_name.moveToNext())
             room_name=fetch_room_name.getString(1);
@@ -110,13 +98,6 @@ public class PlaceholderFragment extends Fragment {
         });
         return root;
     }
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Toast.makeText(context,"Tab: "+tab_index,Toast.LENGTH_SHORT).show();
-
-    }*/
 
     @Override
     public void onResume() {
