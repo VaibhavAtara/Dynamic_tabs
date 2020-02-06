@@ -45,6 +45,7 @@ public class BottomNavigation extends AppCompatActivity {
 
         BottomNavigationView bottomNav=findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainActivity())
                 .commit();
     }
