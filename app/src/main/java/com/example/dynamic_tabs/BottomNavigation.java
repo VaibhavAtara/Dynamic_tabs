@@ -23,7 +23,7 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment = new MainActivity();
                             break;
                         case R.id.nav_profile:
-                            //selectedFragment=new profile_fragment();
+                            selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
                             //selectedFragment=new settings_fragment();

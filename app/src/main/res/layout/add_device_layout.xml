@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/devicecard"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_weight="1"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    cardview:cardCornerRadius="4dp"
+    android:layout_margin="5dp">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bookImg"
+            android:layout_width="150dp"
+            android:layout_margin="10dp"
+            android:layout_height="160dp"
+            android:background="#2d2d2d"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:textSize="13sp"
+            android:textColor="#2d2d2d"
+            android:gravity="center"
+            android:text="Bool title"/>
+        <Button
+            android:id="@+id/addDevice"
+            android:text="ADD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

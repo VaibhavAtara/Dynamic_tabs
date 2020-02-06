@@ -43,47 +43,7 @@ public class MainActivity extends Fragment {
     Toolbar toolbar;
 
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //#################################################################
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        //######################################################################
 
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-
-        Database_test data_test=new Database_test(getApplicationContext());
-        Cursor all_rooms=data_test.fetch_all_rooms();
-        while(all_rooms.moveToNext())
-        {
-            tab_name= all_rooms.getString(1);
-            sectionsPagerAdapter.AddFragment(PlaceholderFragment.newInstance(sectionsPagerAdapter.getCount()+1),tab_name);
-            viewPager.setAdapter(sectionsPagerAdapter);
-            tabs.setupWithViewPager(viewPager);
-
-            if(tab_name.equals("hall"))
-              data_test.insert_in_room("Anirudh","Good","Educational",R.drawable.b1,tab_name);
-            if(tab_name.equals("bedroom"))
-                data_test.insert_in_room("Vaibhav","Bad","Porn",R.drawable.b2,tab_name);
-        }
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }*/
 //##########################################################################################################
    public void create_tabs(View view)
    {
@@ -121,30 +81,13 @@ public class MainActivity extends Fragment {
 
 
 
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        getContext().getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    }*/
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
 
-        /*if(id==getContext().id.add_device)
-            create_tabs();
 
-        if(id==R.id.settings)
-            Toast.makeText(getContext(),"Setting",Toast.LENGTH_SHORT).show();
-        */
-        return true;
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main2);
         View view = inflater.inflate(R.layout.activity_main,container,false);
         toolbar = (Toolbar)view.findViewById(R.id.toolbar);
-       // getActivity().setSupportActionBar(toolbar);
 
         //######################################################################
 
@@ -182,28 +125,8 @@ public class MainActivity extends Fragment {
                     }
                 });
                 builder.show();
-
-
-
-
-
-
-
-
-
-
-
             }
         });
-
-
-
-
-
-
-
-
-
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getActivity().getSupportFragmentManager());
         viewPager = view.findViewById(R.id.view_pager);
@@ -221,27 +144,20 @@ public class MainActivity extends Fragment {
             viewPager.setAdapter(sectionsPagerAdapter);
             tabs.setupWithViewPager(viewPager);
 
-            if(tab_name.equals("hall"))
-                data_test.insert_in_room("Anirudh","Good","Educational",R.drawable.b1,tab_name);
-            if(tab_name.equals("bedroom"))
-                data_test.insert_in_room("Vaibhav","Bad","abcd",R.drawable.b2,tab_name);
+
         }
 
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
+        /*FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         return view;
     }
-
-
-
-
 }
 
 
