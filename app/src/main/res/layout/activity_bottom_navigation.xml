@@ -6,9 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        app:title="VaaVHomes"
+        app:titleTextColor="@android:color/white"
+        app:titleMarginStart="40dp"
+
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"/>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
         />
@@ -19,6 +30,9 @@
         android:layout_gravity="bottom"
         android:scrollIndicators="bottom|right"
         android:scrollbars="horizontal"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="#ffffff"
+        app:itemTextColor="#ffffff"
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu">
 
