@@ -60,7 +60,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
                 Here I am going to create an alert dialog which will ask the user which room he wants
                 to add the device to. I will use Spinner for this purpose
                  */
-                //********************************************************************
+                 //********************************************************************
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Select room");
                 final EditText input = new EditText(view.getContext());
@@ -75,7 +75,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
                     room_options.add(fetch_all_rooms.getString(1));
                 }
                 ArrayAdapter<String> adapter=new ArrayAdapter<String>(view.getContext(),
-                        R.layout.support_simple_spinner_dropdown_item,room_options);
+                      R.layout.support_simple_spinner_dropdown_item,room_options);
                 spinner.setAdapter(adapter);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
