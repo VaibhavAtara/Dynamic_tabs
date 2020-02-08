@@ -101,6 +101,8 @@ public class PlaceholderFragment extends Fragment {
 
     @Override
     public void onResume() {
+
+        recyclerViewAdapter.notifyDataSetChanged();
         super.onResume();
     }
 }

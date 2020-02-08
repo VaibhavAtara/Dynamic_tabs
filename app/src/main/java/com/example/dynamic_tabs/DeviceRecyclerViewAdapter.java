@@ -61,6 +61,8 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
                 to add the device to. I will use Spinner for this purpose
                  */
                  //********************************************************************
+                Button asd=(Button)view1;
+                asd.setText("Clicked");
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Select room");
                 final EditText input = new EditText(view.getContext());

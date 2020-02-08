@@ -32,6 +32,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+//libraries for mqtt
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+//import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
 
 import com.example.dynamic_tabs.ui.main.SectionsPagerAdapter;
 
@@ -125,8 +139,23 @@ public class MainActivity extends Fragment {
 
             }
         });
+        //Anirudh Ramani 08/02/2020
+        /* Here I will write code for MQTT implementation*/
+
+       // Mqtt_class mqtt_class = new Mqtt_class(view.getContext());
+
+
+
+
+
+
+        //**************************************************
+
+
         return view;
     }
+
+
 }
 
 

@@ -11,6 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,7 @@ public class Devices extends Fragment {
     View view;
     RecyclerView recyclerView;
     DeviceRecyclerViewAdapter deviceRecyclerViewAdapter;
+    Button button;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +48,16 @@ public class Devices extends Fragment {
         devices.add(new Book("7","7","7",R.drawable.b7));
         devices.add(new Book("8","8","8",R.drawable.b8));
         devices.add(new Book("9","9","9",R.drawable.b9));
+        Mqtt_class mqtt_class = new Mqtt_class(view.getContext());
+        final MqttAndroidClient client = mqtt_class.get_connection();
+
+
+
 
        deviceRecyclerViewAdapter = new DeviceRecyclerViewAdapter(view.getContext(),devices);
        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
        recyclerView.setAdapter(deviceRecyclerViewAdapter);
+
         return view;
     }
 }
