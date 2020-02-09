@@ -2,6 +2,7 @@ package com.example.dynamic_tabs;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
@@ -48,7 +49,11 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     try {
-                        client.publish("conf", new MqttMessage("{}".getBytes()));
+                        String message="{"+ "\"serial\"" +":"+ Build.SERIAL+","+
+                            "\"manufacturer\""+ ":"+ Build.MANUFACTURER+","+ "\"type\"" +":"+ "5"+","+ "\"topic\"" +":"+"101"+","+
+                            "start"+ ":"+"1581139241.9628208"+","+ "\"end\"" +":"+ "1581150998.1089"+","+ "\"message\"" +":"+ "ON"+","+ "\"from\""+":"+ "mobile"+","+
+                                "\"Watt\""+":"+"10"+","+"\"duty_cycle\""+":"+"10}";
+                        client.publish("conf", new MqttMessage(message.getBytes()));
                     } catch (MqttException e) {
 
                     }
