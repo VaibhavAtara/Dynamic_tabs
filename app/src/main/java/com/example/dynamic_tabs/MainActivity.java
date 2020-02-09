@@ -69,11 +69,6 @@ public class MainActivity extends Fragment {
                .setAction("Action", null);
        snackbar.getView().setBackgroundColor(Color.parseColor("#fcde32"));
 
-
-
-
-
-
        builder.setTitle("Title");
         final EditText input = new EditText(getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT );

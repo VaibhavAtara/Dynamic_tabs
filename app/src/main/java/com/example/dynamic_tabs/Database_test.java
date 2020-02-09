@@ -16,6 +16,7 @@ public class Database_test extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE IF NOT EXISTS rooms(id INTEGER PRIMARY KEY,room_name TEXT );");
 
+
     }
 
     @Override
