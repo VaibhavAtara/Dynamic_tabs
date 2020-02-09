@@ -64,7 +64,17 @@ public class MainActivity extends Fragment {
    public boolean create_tabs(View view)
    {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Title");
+
+       final Snackbar snackbar = Snackbar.make(view, "ROOM ADDED SUCCESSFULLY", Snackbar.LENGTH_LONG)
+               .setAction("Action", null);
+       snackbar.getView().setBackgroundColor(Color.parseColor("#fcde32"));
+
+
+
+
+
+
+       builder.setTitle("Title");
         final EditText input = new EditText(getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT );
         builder.setView(input);
@@ -78,8 +88,8 @@ public class MainActivity extends Fragment {
             viewPager.setAdapter(sectionsPagerAdapter);
             tabs.setupWithViewPager(viewPager);
             viewPager.setCurrentItem(sectionsPagerAdapter.getCount()-1);
-            Toast.makeText(getContext(),"selected tab"+(sectionsPagerAdapter.getCount()-1),
-                    Toast.LENGTH_SHORT).show();
+            snackbar.show();
+
         }});
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
               @Override
@@ -105,7 +115,7 @@ public class MainActivity extends Fragment {
 
         //######################################################################
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getActivity().getSupportFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getChildFragmentManager());
         viewPager = view.findViewById(R.id.view_pager);
 
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -130,12 +140,6 @@ public class MainActivity extends Fragment {
             public void onClick(View view) {
 
                 boolean added = create_tabs(view);
-                Snackbar snackbar = Snackbar.make(view, "ROOM ADDED SUCCESSFULLY", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null);
-                snackbar.getView().setBackgroundColor(Color.parseColor("#fcde32"));
-
-                if(added)
-                    snackbar.show();
 
             }
         });
