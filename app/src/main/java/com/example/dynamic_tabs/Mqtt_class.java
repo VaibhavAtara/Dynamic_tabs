@@ -49,10 +49,11 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     try {
-                        String message="{"+ "\"serial\"" +":"+ Build.SERIAL+","+
-                            "\"manufacturer\""+ ":"+ Build.MANUFACTURER+","+ "\"type\"" +":"+ "5"+","+ "\"topic\"" +":"+"101"+","+
-                            "start"+ ":"+"1581139241.9628208"+","+ "\"end\"" +":"+ "1581150998.1089"+","+ "\"message\"" +":"+ "ON"+","+ "\"from\""+":"+ "mobile"+","+
-                                "\"Watt\""+":"+"10"+","+"\"duty_cycle\""+":"+"10}";
+                        String message="{"+ "\"serial\"" +":\""+ Build.SERIAL+"\","+
+                            "\"manufacturer\""+ ":\""+ Build.MANUFACTURER+"\","+ "\"type\"" +":"+ "\"mobile\""+","+ "\"topic\"" +":"+"\"101\""+","+
+                            "\"start\""+ ":"+"\"1581139241.9628208\""+","+ "\"end\"" +":"+ "\"1581150998.1089\""+","+ "\"message\"" +":"+ "\"ON\""+","+
+                                "\"from\""+":"+ "\"mobile\""+","+
+                                "\"Watt\""+":"+"\"10\""+","+"\"duty_cycle\""+":"+"\"10\"}";
                         client.publish("conf", new MqttMessage(message.getBytes()));
                     } catch (MqttException e) {
 
@@ -153,4 +154,6 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
         return null;
     }
+
+
 }

@@ -57,6 +57,12 @@
                 android:textSize="13sp"
                 android:text="description"/>
 
+            <Button
+                android:id="@+id/publish"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="Publish"/>
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

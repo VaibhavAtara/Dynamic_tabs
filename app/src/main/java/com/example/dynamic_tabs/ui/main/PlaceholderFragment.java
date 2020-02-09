@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dynamic_tabs.Database_test;
+import com.example.dynamic_tabs.DeviceObject;
 import com.example.dynamic_tabs.R;
 import com.example.dynamic_tabs.Book;
 import com.example.dynamic_tabs.RecyclerViewAdapter;
@@ -28,7 +29,7 @@ import java.util.List;
 
 
 public class PlaceholderFragment extends Fragment {
-    List<Book> mydata;
+    List<DeviceObject> mydata;
     Button add;
     RecyclerViewAdapter recyclerViewAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -62,15 +63,27 @@ public class PlaceholderFragment extends Fragment {
         if(fetch_room_name.moveToNext())
             room_name=fetch_room_name.getString(1);
 
-        Cursor room_details = data_test.get_room_data(room_name);
+        Cursor cursor = data_test.get_room_data(room_name);
 
         mydata = new ArrayList<>();
 
-        while(room_details.moveToNext())
+        while(cursor.moveToNext())
         {
-            mydata.add(new Book(room_details.getString(0),
-                    room_details.getString(1),room_details.getString(2)
-                    ,room_details.getInt(3)));
+            DeviceObject deviceObject=new DeviceObject();
+            deviceObject.setId(cursor.getString(0));
+            deviceObject.setType(cursor.getString(1));
+            deviceObject.setTime(cursor.getString(2));
+            deviceObject.setTopic(cursor.getString(3));
+            deviceObject.setStart(cursor.getString(4));
+            deviceObject.setClose(cursor.getString(5));
+            deviceObject.setCommand(cursor.getString(6));
+            deviceObject.setSource(cursor.getString(7));
+            deviceObject.setWatt(cursor.getString(8));
+            deviceObject.setDuty(cursor.getString(9));
+            deviceObject.setThumbnail(cursor.getInt(10));
+
+
+            mydata.add(deviceObject);
         }
        /* mydata.add(new Book(room_name,"tab_index: "+tab_index,"1",R.drawable.b1));
         mydata.add(new Book("2","2","2",R.drawable.b2));
@@ -89,13 +102,13 @@ public class PlaceholderFragment extends Fragment {
         recyclerView.setAdapter(recyclerViewAdapter);
 
 
-        add.setOnClickListener(new View.OnClickListener() {
+        /*add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mydata.add(new Book("10","10","10",R.drawable.b10));
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
-        });
+        });*/
         return root;
     }
 
