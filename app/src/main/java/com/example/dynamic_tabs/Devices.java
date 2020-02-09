@@ -54,6 +54,8 @@ public class Devices extends Fragment {
 
 
 
+
+
        deviceRecyclerViewAdapter = new DeviceRecyclerViewAdapter(view.getContext(),devices);
        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
        recyclerView.setAdapter(deviceRecyclerViewAdapter);

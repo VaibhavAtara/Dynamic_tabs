@@ -29,6 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".book_act" />
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+
     </application>
 
 </manifest>

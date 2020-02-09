@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.MessageQueue;
 import android.util.Log;
@@ -115,6 +116,14 @@ public class BottomNavigation extends AppCompatActivity {
         {
             case R.id.home:
                 Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_SHORT).show();
+                Database_test database_test=new Database_test(getApplicationContext());
+                Cursor cursor=database_test.fetch_devices();
+                while(cursor.moveToNext())
+                {
+                    Toast.makeText(getApplicationContext(),"id: "+cursor.getString(0)+"topic:"+
+                            cursor.getString(3),Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.settings:
                 try{
                     client.publish("vaibhav",new MqttMessage("settings".getBytes()));
