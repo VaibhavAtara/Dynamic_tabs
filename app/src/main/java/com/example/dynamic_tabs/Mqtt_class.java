@@ -2,6 +2,8 @@ package com.example.dynamic_tabs;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -13,6 +15,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 
 public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
@@ -20,6 +23,7 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
     byte[] password;
     String link;
     Context context;
+    DeviceObject deviceObject=new DeviceObject();
 
     public Mqtt_class(Context context) {
         this.context = context;
@@ -45,7 +49,12 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     try {
-                        client.publish("conf", new MqttMessage("{}".getBytes()));
+                        String message="{"+ "\"serial\"" +":\""+ Build.SERIAL+"\","+
+                            "\"manufacturer\""+ ":\""+ Build.MANUFACTURER+"\","+ "\"type\"" +":"+ "\"mobile\""+","+ "\"topic\"" +":"+"\"101\""+","+
+                            "\"start\""+ ":"+"\"1581139241.9628208\""+","+ "\"end\"" +":"+ "\"1581150998.1089\""+","+ "\"message\"" +":"+ "\"ON\""+","+
+                                "\"from\""+":"+ "\"mobile\""+","+
+                                "\"Watt\""+":"+"\"10\""+","+"\"duty_cycle\""+":"+"\"10\"}";
+                        client.publish("conf", new MqttMessage(message.getBytes()));
                     } catch (MqttException e) {
 
                     }
@@ -89,8 +98,30 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
                             @Override
                             public void messageArrived(String topic, MqttMessage message) throws Exception {
-
                                 Toast.makeText(context,message.toString(),Toast.LENGTH_SHORT).show();
+                                JSONObject reader=new JSONObject(message.toString());
+
+                                deviceObject.setId(reader.getString("_id"));
+                                deviceObject.setType(reader.getString("type"));
+                                deviceObject.setTime(reader.getString("time"));
+                                deviceObject.setTopic(reader.getString("topic"));
+                                deviceObject.setStart(reader.getString("start"));
+                                deviceObject.setClose(reader.getString("end"));
+                                deviceObject.setCommand(reader.getString("message"));
+                                deviceObject.setSource(reader.getString("from"));
+                                deviceObject.setWatt(reader.getString("Watt"));
+                                deviceObject.setDuty(reader.getString("duty_cycle"));
+                                deviceObject.setThumbnail(R.drawable.b1);
+                                Database_test database_test=new Database_test(context);
+                                boolean inserted=database_test.insert_devices(deviceObject);
+                                database_test.close();
+
+
+                                Toast.makeText(context,""+inserted,Toast.LENGTH_SHORT).show();
+
+
+                                // enter into database here
+
 
                             }
 
@@ -123,4 +154,6 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
         return null;
     }
+
+
 }

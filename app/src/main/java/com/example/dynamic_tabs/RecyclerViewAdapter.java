@@ -17,9 +17,9 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Book> mydata;
+    private List<DeviceObject> mydata;
 
-    public RecyclerViewAdapter(Context context, List<Book> mydata) {
+    public RecyclerViewAdapter(Context context, List<DeviceObject> mydata) {
         this.context = context;
         this.mydata = mydata;
     }
@@ -36,15 +36,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
-            holder.textView.setText(mydata.get(position).getTitle());
+            holder.textView.setText(mydata.get(position).getTopic());
             holder.imageView.setImageResource(mydata.get(position).getThumbnail());
+
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context,book_act.class);
-                    intent.putExtra("Title",mydata.get(position).getTitle());
-                    intent.putExtra("Category",mydata.get(position).getCategory());
-                    intent.putExtra("Description",mydata.get(position).getDes());
+                    intent.putExtra("Title",mydata.get(position).getTopic());
+                    intent.putExtra("Category",mydata.get(position).getType());
+                    intent.putExtra("Description",mydata.get(position).getCommand());
                     intent.putExtra("Thumbnail",mydata.get(position).getThumbnail());
                     context.startActivity(intent);
                 }

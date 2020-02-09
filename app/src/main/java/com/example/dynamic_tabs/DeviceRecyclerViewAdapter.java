@@ -28,10 +28,10 @@ import com.example.dynamic_tabs.ui.main.PlaceholderFragment;
 public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecyclerViewAdapter.DeviceViewHolder>{
 
     private Context context;
-    private List<Book> Devices;
+    private List<DeviceObject> Devices;
     View view;
 
-    public DeviceRecyclerViewAdapter(Context context, List<Book> devices) {
+    public DeviceRecyclerViewAdapter(Context context, List<DeviceObject> devices) {
         this.context = context;
         Devices = devices;
     }
@@ -50,7 +50,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
     @Override
     public void onBindViewHolder(@NonNull DeviceViewHolder holder, final int position) {
 
-        holder.textView.setText(Devices.get(position).getTitle());
+        holder.textView.setText(Devices.get(position).getTopic());
         holder.imageView.setImageResource(Devices.get(position).getThumbnail());
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +85,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
                     public void onClick(DialogInterface dialog, int which) {
                         final String room_name= spinner.getSelectedItem().toString();
                         Database_test  database_test = new Database_test(view.getContext());
-                        database_test.insert_in_room(Devices.get(position).getTitle(),
-                                Devices.get(position).getDes(),Devices.get(position).getCategory(),
-                                Devices.get(position).getThumbnail(),room_name);
+                        database_test.insert_in_room(Devices.get(position),room_name);
                         Toast.makeText(view.getContext(),"device inserted",Toast.LENGTH_SHORT).show();
 
 

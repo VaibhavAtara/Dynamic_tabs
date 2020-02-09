@@ -15,6 +15,8 @@ public class Database_test extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE IF NOT EXISTS rooms(id INTEGER PRIMARY KEY,room_name TEXT );");
+        db.execSQL("CREATE TABLE IF NOT EXISTS devices(id TEXT PRIMARY KEY,type TEXT, time TEXT,topic TEXT," +
+                "start TEXT,close TEXT,command TEXT,source TEXT, watt TEXT,duty TEXT,thumbnail INTEGER )");
 
 
     }
@@ -31,7 +33,8 @@ public class Database_test extends SQLiteOpenHelper {
     public boolean create_room(String room_name,int id)
     {
         SQLiteDatabase db=this.getReadableDatabase();
-        db.execSQL("create table if not exists "+room_name+"(title TEXT,des TEXT,cat TEXT,thumbnail INTEGER);");
+        db.execSQL("create table if not exists "+room_name+"(id TEXT PRIMARY KEY,type TEXT,time TEXT," +
+                "topic TEXT,start TEXT,close TEXT, command TEXT,source TEXT,watt TEXT,duty TEXT,thumbnail INTEGER);");
 
         ContentValues contentValues=new ContentValues();
         contentValues.put("id",id);
@@ -76,17 +79,34 @@ public class Database_test extends SQLiteOpenHelper {
     }
 
 
-    public boolean insert_in_room(String title,String des,String cat,int id,String room_name)
+    public boolean insert_in_room(DeviceObject deviceObject,String room_name)
     {
         SQLiteDatabase db=this.getReadableDatabase();
 
         ContentValues contentValues=new ContentValues();
 
-        contentValues.put("title",title);
-        contentValues.put("des",des);
-        contentValues.put("cat",cat);
-        contentValues.put("thumbnail",id);
-        //long result=db.insert(room_name,null,contentValues);
+        contentValues.put("id",deviceObject.getId());
+
+        contentValues.put("type",deviceObject.getTopic());
+
+        contentValues.put("time",deviceObject.getTime());
+
+        contentValues.put("topic",deviceObject.getTopic());
+
+        contentValues.put("start",deviceObject.getStart());
+
+        contentValues.put("close",deviceObject.getClose());
+
+        contentValues.put("command",deviceObject.getCommand());
+
+        contentValues.put("source",deviceObject.getSource());
+
+        contentValues.put("watt",deviceObject.getWatt());
+
+        contentValues.put("duty",deviceObject.getDuty());
+
+        contentValues.put("thumbnail",deviceObject.getThumbnail());
+
         long result1=db.insert(room_name,null,contentValues);
         if(result1==-1)
             return false;
@@ -95,6 +115,47 @@ public class Database_test extends SQLiteOpenHelper {
 
 
     }
+    public Cursor fetch_devices()
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("select * from devices;",null);
+        return cursor;
+    }
+    public boolean insert_devices(DeviceObject deviceObject)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("id",deviceObject.getId());
+
+        contentValues.put("type",deviceObject.getTopic());
+
+        contentValues.put("time",deviceObject.getTime());
+
+        contentValues.put("topic",deviceObject.getTopic());
+
+        contentValues.put("start",deviceObject.getStart());
+
+        contentValues.put("close",deviceObject.getClose());
+
+        contentValues.put("command",deviceObject.getCommand());
+
+        contentValues.put("source",deviceObject.getSource());
+
+        contentValues.put("watt",deviceObject.getWatt());
+
+        contentValues.put("duty",deviceObject.getDuty());
+
+        contentValues.put("thumbnail",deviceObject.getThumbnail());
+
+        long result1=db.insert("devices",null,contentValues);
+        if(result1==-1)
+            return false;
+        else
+            return true;
+
+    }
+
+
 
 
 }
