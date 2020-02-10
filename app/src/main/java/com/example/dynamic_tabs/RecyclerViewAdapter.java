@@ -43,10 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context,book_act.class);
-                    intent.putExtra("Title",mydata.get(position).getTopic());
-                    intent.putExtra("Category",mydata.get(position).getType());
-                    intent.putExtra("Description",mydata.get(position).getCommand());
-                    intent.putExtra("Thumbnail",mydata.get(position).getThumbnail());
+                    intent.putExtra("DeviceObject",mydata.get(position));
                     context.startActivity(intent);
                 }
             });

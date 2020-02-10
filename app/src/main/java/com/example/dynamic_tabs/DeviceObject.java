@@ -1,6 +1,9 @@
 package com.example.dynamic_tabs;
 
-public class DeviceObject {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class DeviceObject implements Parcelable {
      int thumbnail;
      String id,type,time,topic, start,close,command,source, watt,duty;
 
@@ -20,6 +23,32 @@ public class DeviceObject {
         this.watt = watt;
         this.duty = duty;
     }
+
+    protected DeviceObject(Parcel in) {
+        thumbnail = in.readInt();
+        id = in.readString();
+        type = in.readString();
+        time = in.readString();
+        topic = in.readString();
+        start = in.readString();
+        close = in.readString();
+        command = in.readString();
+        source = in.readString();
+        watt = in.readString();
+        duty = in.readString();
+    }
+
+    public static final Creator<DeviceObject> CREATOR = new Creator<DeviceObject>() {
+        @Override
+        public DeviceObject createFromParcel(Parcel in) {
+            return new DeviceObject(in);
+        }
+
+        @Override
+        public DeviceObject[] newArray(int size) {
+            return new DeviceObject[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -107,5 +136,25 @@ public class DeviceObject {
 
     public void setDuty(String duty) {
         this.duty = duty;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(thumbnail);
+        parcel.writeString(id);
+        parcel.writeString(type);
+        parcel.writeString(time);
+        parcel.writeString(topic);
+        parcel.writeString(start);
+        parcel.writeString(close);
+        parcel.writeString(command);
+        parcel.writeString(source);
+        parcel.writeString(watt);
+        parcel.writeString(duty);
     }
 }

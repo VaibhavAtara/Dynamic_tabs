@@ -25,10 +25,11 @@ public class book_act extends AppCompatActivity {
         setContentView(R.layout.activity_book_act);
 
         Intent intent = getIntent();
-        String Title = intent.getExtras().getString("Title");
-        String Des = intent.getExtras().getString("Description");
-        final String Cat = intent.getExtras().getString("Category");
-        int Thumbnail = intent.getExtras().getInt("Thumbnail");
+        DeviceObject deviceObject = intent.getParcelableExtra("DeviceObject");
+        String Title = deviceObject.getTopic();
+        String Des = deviceObject.getCommand();
+        final String Cat = deviceObject.getTopic();
+        int Thumbnail = deviceObject.getThumbnail();
 
         title = (TextView)findViewById(R.id.booktitle);
         des = (TextView)findViewById(R.id.des);
@@ -48,7 +49,7 @@ public class book_act extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"in publish",Toast.LENGTH_SHORT).show();
                 try{
-                    mqttAndroidClient.publish("hello",new MqttMessage("bye".getBytes()));
+                    mqttAndroidClient.publish(title.getText().toString(),new MqttMessage(cat.getText().toString().getBytes()));
                 }catch (MqttException e){
                     Toast.makeText(getApplicationContext(),"Book:"+e.toString(),Toast.LENGTH_SHORT).show();
                 }
