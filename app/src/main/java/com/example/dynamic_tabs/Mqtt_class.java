@@ -24,6 +24,11 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
     String link;
     Context context;
     DeviceObject deviceObject=new DeviceObject();
+    static MqttAndroidClient client;
+
+    public static MqttAndroidClient getClient() {
+        return client;
+    }
 
     public Mqtt_class(Context context) {
         this.context = context;
@@ -37,7 +42,7 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
     }
 
     public MqttAndroidClient get_connection() {
-        final MqttAndroidClient client = new MqttAndroidClient(context
+        client = new MqttAndroidClient(context
                 , "tcp://tailor.cloudmqtt.com:13968", MqttClient.generateClientId());
         MqttConnectOptions options = new MqttConnectOptions();
         options.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);

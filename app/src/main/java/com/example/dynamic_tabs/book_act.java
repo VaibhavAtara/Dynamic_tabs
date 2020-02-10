@@ -40,9 +40,8 @@ public class book_act extends AppCompatActivity {
         des.setText(Des);
         cat.setText(Cat);
         imageView.setImageResource(Thumbnail);
-
-        mqtt mqtt_class = new mqtt(getApplicationContext());
-        final MqttAndroidClient mqttAndroidClient = mqtt_class.getClient();
+        //Mqtt_class mqtt_class = new Mqtt_class(getApplicationContext());
+        final MqttAndroidClient mqttAndroidClient  = Mqtt_class.getClient();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
