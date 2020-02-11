@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -124,6 +125,9 @@ public class Database_test extends SQLiteOpenHelper {
     public boolean insert_devices(DeviceObject deviceObject)
     {
         SQLiteDatabase db=this.getReadableDatabase();
+
+        Cursor result=db.rawQuery("select * from devices where id='"+deviceObject.getId()+"'",null);
+
         ContentValues contentValues=new ContentValues();
         contentValues.put("id",deviceObject.getId());
 
@@ -147,7 +151,15 @@ public class Database_test extends SQLiteOpenHelper {
 
         contentValues.put("thumbnail",deviceObject.getThumbnail());
 
-        long result1=db.insert("devices",null,contentValues);
+        if(result.getCount() != 0)
+        {
+
+        // db.execSQL("UPDATE devices SET command="+"\""+deviceObject.command+"\""+"where id="+"\""+deviceObject.getId()+"\""+";");
+            db.update("devices",contentValues,"id="+deviceObject.getId(),null);
+            return  false;
+        }
+       long result1=db.insert("devices",null,contentValues);
+
         if(result1==-1)
             return false;
         else
