@@ -116,7 +116,7 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                                 deviceObject.setSource(reader.getString("from"));
                                 deviceObject.setWatt(reader.getString("Watt"));
                                 deviceObject.setDuty(reader.getString("duty_cycle"));
-                                deviceObject.setThumbnail(R.drawable.b1);
+                                deviceObject.setThumbnail(R.drawable.bulb_on);
                                 Database_test database_test=new Database_test(context);
                                 boolean inserted=database_test.insert_devices(deviceObject);
                                 database_test.close();

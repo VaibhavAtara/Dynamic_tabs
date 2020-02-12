@@ -122,6 +122,13 @@ public class Database_test extends SQLiteOpenHelper {
         Cursor cursor=db.rawQuery("select * from devices;",null);
         return cursor;
     }
+
+    public Cursor fetch_device(String id)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("select * from devices where id='"+id+"'",null);
+        return cursor;
+    }
     public boolean insert_devices(DeviceObject deviceObject)
     {
         SQLiteDatabase db=this.getReadableDatabase();

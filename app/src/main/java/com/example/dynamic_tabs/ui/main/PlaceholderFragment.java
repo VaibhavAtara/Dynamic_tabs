@@ -70,31 +70,24 @@ public class PlaceholderFragment extends Fragment {
         while(cursor.moveToNext())
         {
             DeviceObject deviceObject=new DeviceObject();
-            deviceObject.setId(cursor.getString(0));
-            deviceObject.setType(cursor.getString(1));
-            deviceObject.setTime(cursor.getString(2));
-            deviceObject.setTopic(cursor.getString(3));
-            deviceObject.setStart(cursor.getString(4));
-            deviceObject.setClose(cursor.getString(5));
-            deviceObject.setCommand(cursor.getString(6));
-            deviceObject.setSource(cursor.getString(7));
-            deviceObject.setWatt(cursor.getString(8));
-            deviceObject.setDuty(cursor.getString(9));
-            deviceObject.setThumbnail(cursor.getInt(10));
+            Cursor cursor1 =data_test.fetch_device(cursor.getString(0));
+            cursor1.moveToFirst();
+            deviceObject.setId(cursor1.getString(0));
+            deviceObject.setType(cursor1.getString(1));
+            deviceObject.setTime(cursor1.getString(2));
+            deviceObject.setTopic(cursor1.getString(3));
+            deviceObject.setStart(cursor1.getString(4));
+            deviceObject.setClose(cursor1.getString(5));
+            deviceObject.setCommand(cursor1.getString(6));
+            deviceObject.setSource(cursor1.getString(7));
+            deviceObject.setWatt(cursor1.getString(8));
+            deviceObject.setDuty(cursor1.getString(9));
+            deviceObject.setThumbnail(cursor1.getInt(10));
 
 
             mydata.add(deviceObject);
         }
-       /* mydata.add(new Book(room_name,"tab_index: "+tab_index,"1",R.drawable.b1));
-        mydata.add(new Book("2","2","2",R.drawable.b2));
-        mydata.add(new Book("3","3","3",R.drawable.b3));
-        mydata.add(new Book("4","4","4",R.drawable.b4));
-        mydata.add(new Book("5","5","5",R.drawable.b5));
-        mydata.add(new Book("6","6","6",R.drawable.b6));
-        mydata.add(new Book("7","7","7",R.drawable.b7));
-        mydata.add(new Book("8","8","8",R.drawable.b8));
-        mydata.add(new Book("9","9","9",R.drawable.b9));
-        mydata.add(new Book("10","10","10",R.drawable.b10));*/
+
 
         final RecyclerView recyclerView = (RecyclerView)root.findViewById(R.id.recyclerview);
         recyclerViewAdapter = new RecyclerViewAdapter(root.getContext(),mydata);

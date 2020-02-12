@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.MessageQueue;
 import android.util.Log;
@@ -50,7 +52,11 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
-                            selectedFragment = new MainActivity();
+                            Intent intent = new Intent(BottomNavigation.this,Survelliance.class);
+                            startActivity(intent);
+                           // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
+                            //startActivity(intent);
+                           // selectedFragment = new Survelliance();
                             subscribe(client);
                             break;
 
@@ -134,6 +140,7 @@ public class BottomNavigation extends AppCompatActivity {
                 }
                 Toast.makeText(getApplicationContext(),"HOME",Toast.LENGTH_SHORT).show();
                 break;
+
 
             default:   return super.onOptionsItemSelected(item);
         }
