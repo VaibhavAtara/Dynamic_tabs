@@ -138,7 +138,7 @@ public class Database_test extends SQLiteOpenHelper {
         ContentValues contentValues=new ContentValues();
         contentValues.put("id",deviceObject.getId());
 
-        contentValues.put("type",deviceObject.getTopic());
+        contentValues.put("type",deviceObject.getType());
 
         contentValues.put("time",deviceObject.getTime());
 

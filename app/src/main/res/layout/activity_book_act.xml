@@ -64,6 +64,15 @@
                 android:text="Publish"/>
 
 
+            <SeekBar
+                android:id="@+id/SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_above="@id/publish"
+                android:min="0"
+                android:max="1023"/>
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
