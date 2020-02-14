@@ -112,7 +112,7 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                                if(topic.equals("mobile")){
                                 JSONObject reader=new JSONObject(message.toString());
 
-                                deviceObject.setId(reader.getString("_id"));
+                                deviceObject.setId(reader.getString("topic"));
                                 deviceObject.setType(reader.getString("type"));
                                 deviceObject.setTime(reader.getString("time"));
                                 deviceObject.setTopic(reader.getString("topic"));

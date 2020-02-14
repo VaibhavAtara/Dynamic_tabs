@@ -20,7 +20,10 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/imageglare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
@@ -28,6 +31,8 @@
                 android:id="@+id/bookimg"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             <TextView
                 android:id="@+id/booktitle"
@@ -56,14 +61,23 @@
                 android:layout_above="@id/publish"
                 android:min="0"
                 android:max="1023"/>
-
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/glare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
             <TextView
                 android:id="@+id/ack_val"
                 android:text="Value:"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="18sp"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

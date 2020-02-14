@@ -10,6 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -17,6 +19,7 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class book_act extends AppCompatActivity {
@@ -30,10 +33,25 @@ public class book_act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_act);
-
+        //###########################################
         Intent intent = getIntent();
         final DeviceObject deviceObject = intent.getParcelableExtra("DeviceObject");
+        final JSONObject object=new JSONObject();
+        try {
+            object.put("_id", deviceObject.getId());
+            object.put("type", deviceObject.getType());
+            object.put("time", deviceObject.getTime());
+            object.put("topic", deviceObject.getTopic());
+            object.put("start", deviceObject.getStart());
+            object.put("end", deviceObject.getClose());
+            object.put("message", deviceObject.getCommand());
+            object.put("from", deviceObject.getSource());
+            object.put("Watt", deviceObject.getWatt());
+            object.put("duty_cycle", deviceObject.getDuty());
+            object.put("category", deviceObject.getCategory());
+            object.put("ack_val", deviceObject.getAck_val());
 
+        }catch(JSONException e){}
 
     //######################################################################################
         type = (TextView)findViewById(R.id.booktitle);
@@ -45,6 +63,12 @@ public class book_act extends AppCompatActivity {
 
         type.setText(deviceObject.getType());
         imageView.setImageResource(deviceObject.getThumbnail());
+
+        ShimmerFrameLayout shimmerFrameLayout = (ShimmerFrameLayout)findViewById(R.id.glare);
+        ShimmerFrameLayout shimmerFrameLayout1 = (ShimmerFrameLayout)findViewById(R.id.imageglare);
+        shimmerFrameLayout.startShimmerAnimation();
+        //shimmerFrameLayout1.startShimmerAnimation();
+
     //####################################################################################
         button.setVisibility(View.GONE);
         ack_val.setVisibility(View.GONE);
@@ -67,8 +91,9 @@ public class book_act extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"in publish",Toast.LENGTH_SHORT).show();
                 try{
-                    mqttAndroidClient.publish(deviceObject.getTopic(),new MqttMessage("send".getBytes()));
-                }catch (MqttException e){
+                    object.put("message","send");
+                    mqttAndroidClient.publish(deviceObject.getCategory(),new MqttMessage(String.valueOf(object).getBytes()));
+                }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"Book:"+e.toString(),Toast.LENGTH_SHORT).show();
                 }
             }
@@ -80,8 +105,11 @@ public class book_act extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                 try{
-                    mqttAndroidClient.publish(deviceObject.getTopic(),new MqttMessage(String.valueOf(progress).getBytes()));
-                }catch (MqttException e){
+
+                    object.put("message",progress);
+                    mqttAndroidClient.publish(deviceObject.getCategory(),new MqttMessage(String.valueOf(object).getBytes()));
+
+                }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"Book:"+e.toString(),Toast.LENGTH_SHORT).show();
                 }
 
