@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
-            holder.textView.setText(mydata.get(position).getTopic());
+            holder.textView.setText(mydata.get(position).getType());
             holder.imageView.setImageResource(mydata.get(position).getThumbnail());
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {

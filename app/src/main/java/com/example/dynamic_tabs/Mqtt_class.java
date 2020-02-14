@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.ContactsContract;
+import android.util.JsonReader;
+import android.util.JsonWriter;
 import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -16,6 +18,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONObject;
+
+import java.io.OutputStreamWriter;
 
 public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
@@ -120,7 +124,16 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                                 deviceObject.setDuty(reader.getString("duty_cycle"));
                                 deviceObject.setAck_val(reader.getString("ack_val"));
                                 deviceObject.setCategory(reader.getString("category"));
-                                deviceObject.setThumbnail(R.drawable.bulb_on);
+                                if(reader.getString("type").equals("led"))
+                                  deviceObject.setThumbnail(R.drawable.bulb_on);
+                                else if(reader.getString("type").equals("ldr"))
+                                    deviceObject.setThumbnail(R.drawable.ldr);
+                                else if(reader.getString("type").equals("fan"))
+                                      deviceObject.setThumbnail(R.drawable.fan);
+                                else if(reader.getString("type").equals("temp"))
+                                    deviceObject.setThumbnail(R.drawable.temp);
+                                else
+                                    deviceObject.setThumbnail(R.drawable.bulb_on);
 
                                 Database_test database_test=new Database_test(context);
                                 boolean inserted=database_test.insert_devices(deviceObject);

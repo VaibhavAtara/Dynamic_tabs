@@ -23,9 +23,11 @@
 
             <ImageView
                 android:layout_width="125dp"
-                android:layout_height="170dp"
+                android:layout_height="wrap_content"
                 android:background="#2d2d2d"
-                android:id="@+id/bookimg"/>
+                android:id="@+id/bookimg"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:id="@+id/booktitle"
@@ -37,28 +39,11 @@
                 android:textSize="18sp"
                 android:text="Book Title"/>
 
-            <TextView
-                android:id="@+id/cat"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#2d2d2d"
-                android:textSize="13sp"
-                android:text="category"/>
 
-            <TextView
-                android:id="@+id/des"
-                android:padding="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#2d2d2d"
-                android:textSize="13sp"
-                android:text="description"/>
 
             <Button
                 android:id="@+id/publish"
+                android:layout_marginTop="5dp"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:text="Publish"/>
@@ -72,6 +57,13 @@
                 android:min="0"
                 android:max="1023"/>
 
+
+            <TextView
+                android:id="@+id/ack_val"
+                android:text="Value:"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
