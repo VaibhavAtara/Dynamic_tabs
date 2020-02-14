@@ -83,6 +83,8 @@ public class PlaceholderFragment extends Fragment {
             deviceObject.setWatt(cursor1.getString(8));
             deviceObject.setDuty(cursor1.getString(9));
             deviceObject.setThumbnail(cursor1.getInt(10));
+            deviceObject.setCategory(cursor1.getString(11));
+            deviceObject.setAck_val(cursor1.getString(12));
 
 
             mydata.add(deviceObject);

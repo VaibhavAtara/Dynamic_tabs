@@ -95,6 +95,7 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                     try {
 
                         client.subscribe("mobile",1);
+                        client.subscribe("sensors",1);
                         client.setCallback(new MqttCallback() {
                             @Override
                             public void connectionLost(Throwable cause) {
@@ -103,7 +104,8 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
                             @Override
                             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                                Toast.makeText(context,message.toString(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,topic+":"+message.toString(),Toast.LENGTH_SHORT).show();
+                               if(topic.equals("mobile")){
                                 JSONObject reader=new JSONObject(message.toString());
 
                                 deviceObject.setId(reader.getString("_id"));
@@ -116,17 +118,17 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
                                 deviceObject.setSource(reader.getString("from"));
                                 deviceObject.setWatt(reader.getString("Watt"));
                                 deviceObject.setDuty(reader.getString("duty_cycle"));
+                                deviceObject.setAck_val(reader.getString("ack_val"));
+                                deviceObject.setCategory(reader.getString("category"));
                                 deviceObject.setThumbnail(R.drawable.bulb_on);
+
                                 Database_test database_test=new Database_test(context);
                                 boolean inserted=database_test.insert_devices(deviceObject);
                                 database_test.close();
 
 
                                 Toast.makeText(context,""+inserted,Toast.LENGTH_SHORT).show();
-
-
-                                // enter into database here
-
+                               }
 
                             }
 

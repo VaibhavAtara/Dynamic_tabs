@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 public class DeviceObject implements Parcelable {
      int thumbnail;
-     String id,type,time,topic, start,close,command,source, watt,duty;
+     String id,type,time,topic, start,close,command,source, watt,duty,category,ack_val;
 
     public DeviceObject() {
     }
 
-    public DeviceObject(String id, int thumbnail, String type, String time, String topic, String start, String close, String command, String source, String watt, String duty) {
+    public DeviceObject(String id, int thumbnail, String type, String time, String topic, String start, String close, String command, String source, String watt, String duty,String category,String ack_val) {
         this.id = id;
         this.thumbnail = thumbnail;
         this.type = type;
@@ -22,6 +22,8 @@ public class DeviceObject implements Parcelable {
         this.source = source;
         this.watt = watt;
         this.duty = duty;
+        this.category = category;
+        this.ack_val = ack_val;
     }
 
     protected DeviceObject(Parcel in) {
@@ -36,6 +38,8 @@ public class DeviceObject implements Parcelable {
         source = in.readString();
         watt = in.readString();
         duty = in.readString();
+        category = in.readString();
+        ack_val = in.readString();
     }
 
     public static final Creator<DeviceObject> CREATOR = new Creator<DeviceObject>() {
@@ -138,6 +142,22 @@ public class DeviceObject implements Parcelable {
         this.duty = duty;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getAck_val() {
+        return ack_val;
+    }
+
+    public void setAck_val(String ack_val) {
+        this.ack_val = ack_val;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -156,5 +176,7 @@ public class DeviceObject implements Parcelable {
         parcel.writeString(source);
         parcel.writeString(watt);
         parcel.writeString(duty);
+        parcel.writeString(category);
+        parcel.writeString(ack_val);
     }
 }

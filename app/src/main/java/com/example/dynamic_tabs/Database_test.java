@@ -17,7 +17,7 @@ public class Database_test extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE IF NOT EXISTS rooms(id INTEGER PRIMARY KEY,room_name TEXT );");
         db.execSQL("CREATE TABLE IF NOT EXISTS devices(id TEXT PRIMARY KEY,type TEXT, time TEXT,topic TEXT," +
-                "start TEXT,close TEXT,command TEXT,source TEXT, watt TEXT,duty TEXT,thumbnail INTEGER )");
+                "start TEXT,close TEXT,command TEXT,source TEXT, watt TEXT,duty TEXT,thumbnail INTEGER,category TEXT,ack_val TEXT )");
 
 
     }
@@ -35,7 +35,7 @@ public class Database_test extends SQLiteOpenHelper {
     {
         SQLiteDatabase db=this.getReadableDatabase();
         db.execSQL("create table if not exists "+room_name+"(id TEXT PRIMARY KEY,type TEXT,time TEXT," +
-                "topic TEXT,start TEXT,close TEXT, command TEXT,source TEXT,watt TEXT,duty TEXT,thumbnail INTEGER);");
+                "topic TEXT,start TEXT,close TEXT, command TEXT,source TEXT,watt TEXT,duty TEXT,thumbnail INTEGER,category TEXT,ack_val TEXT);");
 
         ContentValues contentValues=new ContentValues();
         contentValues.put("id",id);
@@ -108,6 +108,12 @@ public class Database_test extends SQLiteOpenHelper {
 
         contentValues.put("thumbnail",deviceObject.getThumbnail());
 
+        contentValues.put("category",deviceObject.getCategory());
+
+        contentValues.put("ack_val",deviceObject.getAck_val());
+
+
+
         long result1=db.insert(room_name,null,contentValues);
         if(result1==-1)
             return false;
@@ -157,6 +163,10 @@ public class Database_test extends SQLiteOpenHelper {
         contentValues.put("duty",deviceObject.getDuty());
 
         contentValues.put("thumbnail",deviceObject.getThumbnail());
+
+        contentValues.put("category",deviceObject.getCategory());
+
+        contentValues.put("ack_val",deviceObject.getAck_val());
 
         if(result.getCount() != 0)
         {
