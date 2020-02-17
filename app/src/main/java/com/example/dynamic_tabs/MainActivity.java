@@ -67,6 +67,7 @@ public class MainActivity extends Fragment {
 
        final Snackbar snackbar = Snackbar.make(view, "ROOM ADDED SUCCESSFULLY", Snackbar.LENGTH_LONG)
                .setAction("Action", null);
+
        snackbar.getView().setBackgroundColor(Color.parseColor("#fcde32"));
 
        builder.setTitle("Title");
