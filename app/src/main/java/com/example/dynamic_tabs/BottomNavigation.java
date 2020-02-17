@@ -93,8 +93,7 @@ public class BottomNavigation extends AppCompatActivity {
       Mqtt_class mqtt_class = new Mqtt_class(getApplicationContext());
 
         mqtt_class.execute(new Void[0]);
-
-      client = mqtt_class.get_connection();
+        client = mqtt_class.get_connection();
 
 
 
