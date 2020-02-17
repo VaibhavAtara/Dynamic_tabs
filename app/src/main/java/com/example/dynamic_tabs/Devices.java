@@ -71,8 +71,8 @@ public class Devices extends Fragment {
         devices.add(new Book("7","7","7",R.drawable.b7));
         devices.add(new Book("8","8","8",R.drawable.b8));
         devices.add(new Book("9","9","9",R.drawable.b9));*/
-        Mqtt_class mqtt_class = new Mqtt_class(view.getContext());
-        final MqttAndroidClient client = mqtt_class.get_connection();
+       // Mqtt_class mqtt_class = new Mqtt_class(view.getContext());
+      // final MqttAndroidClient client = Mqtt_class.getClient();
 
 
 
