@@ -78,7 +78,7 @@ public class book_act extends AppCompatActivity{
         ShimmerFrameLayout shimmerFrameLayout = (ShimmerFrameLayout)findViewById(R.id.glare);
         ShimmerFrameLayout shimmerFrameLayout1 = (ShimmerFrameLayout)findViewById(R.id.imageglare);
         shimmerFrameLayout.startShimmerAnimation();
-        //shimmerFrameLayout1.startShimmerAnimation();
+        shimmerFrameLayout1.startShimmerAnimation();
 
     //####################################################################################
         button.setVisibility(View.GONE);

@@ -52,7 +52,7 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
-                            Intent intent = new Intent(BottomNavigation.this,Survelliance.class);
+                            Intent intent = new Intent(BottomNavigation.this,TimedActivity.class);
                             startActivity(intent);
                            // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
                             //startActivity(intent);
@@ -93,8 +93,7 @@ public class BottomNavigation extends AppCompatActivity {
       Mqtt_class mqtt_class = new Mqtt_class(getApplicationContext());
 
         mqtt_class.execute(new Void[0]);
-
-      client = mqtt_class.get_connection();
+        client = mqtt_class.get_connection();
 
 
 
