@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dynamic_tabs">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Survelliance"></activity>
+        <activity android:name=".TimedActivity"></activity>
+        <activity android:name=".Survelliance" />
         <activity android:name=".Devices" />
         <activity android:name=".BottomNavigation">
             <intent-filter>
@@ -31,9 +32,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".book_act" />
+        <receiver android:name=".PublishMessage"
+            android:enabled="true"
+            android:exported="true"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
-
 
 </manifest>
