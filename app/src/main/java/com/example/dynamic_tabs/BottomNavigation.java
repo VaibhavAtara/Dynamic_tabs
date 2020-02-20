@@ -52,10 +52,10 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
-                            Intent intent = new Intent(BottomNavigation.this,TimedActivity.class);
-                            startActivity(intent);
-                           // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
+                            //Intent intent = new Intent(BottomNavigation.this,TimedActivity.class);
                             //startActivity(intent);
+                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
+                            startActivity(intent);
                            // selectedFragment = new Survelliance();
                             subscribe(client);
                             break;
@@ -131,6 +131,10 @@ public class BottomNavigation extends AppCompatActivity {
                 break;
             case R.id.settings:
                 try{
+                    Intent intent = new Intent(this,PublishMessage.class);
+                    intent.putExtra("topic","random");
+                    intent.putExtra("message","ON");
+                    sendBroadcast(intent);
                     client.publish("vaibhav",new MqttMessage("settings".getBytes()));
                 }
                 catch (MqttException e)

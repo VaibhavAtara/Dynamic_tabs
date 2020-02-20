@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimedActivity"></activity>
         <activity android:name=".Survelliance" />
         <activity android:name=".Devices" />
         <activity android:name=".BottomNavigation">

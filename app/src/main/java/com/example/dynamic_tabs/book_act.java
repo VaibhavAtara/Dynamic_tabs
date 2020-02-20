@@ -1,9 +1,11 @@
 package com.example.dynamic_tabs;
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,14 +40,21 @@ public class book_act extends AppCompatActivity{
     Button button;
     SeekBar seekBar;
 
+
+    TimePicker timePicker;
+    Button setAlarm;
+
+    DeviceObject deviceObject;
+    JSONObject object;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_act);
         //###########################################
         Intent intent = getIntent();
-        final DeviceObject deviceObject = intent.getParcelableExtra("DeviceObject");
-        final JSONObject object=new JSONObject();
+         deviceObject = intent.getParcelableExtra("DeviceObject");
+         object=new JSONObject();
         try {
             object.put("_id", deviceObject.getId());
             object.put("type", deviceObject.getType());
@@ -70,6 +79,8 @@ public class book_act extends AppCompatActivity{
         ack_val = (TextView) findViewById(R.id.ack_val);
 
 
+        timePicker = (TimePicker)findViewById(R.id.timepicker);
+        setAlarm = (Button)findViewById(R.id.setAlarm);
 
 
         type.setText(deviceObject.getType());
@@ -89,6 +100,8 @@ public class book_act extends AppCompatActivity{
             seekBar.setVisibility(View.GONE);
             button.setVisibility(View.VISIBLE);
             ack_val.setVisibility(View.VISIBLE);
+            timePicker.setVisibility(View.GONE);
+            setAlarm.setVisibility(View.GONE);
         }
 
         if(deviceObject.getType().equals("fan"))
@@ -166,12 +179,56 @@ public class book_act extends AppCompatActivity{
 
     //###########################################################################################################################################################
 
+        setAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                if(Build.VERSION.SDK_INT >= 23) {
+                    calendar.set(calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH),
+                            timePicker.getHour(),
+                            timePicker.getMinute(),
+                            0);
+                }
+                else{
+                    calendar.set(calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH),
+                            timePicker.getCurrentHour(),
+                            timePicker.getCurrentMinute(),
+                            0);
+                }
+
+                SetAlarm(calendar.getTimeInMillis());
+
+            }
+        });
         //###############################################################################################################################################
     }
 
 
 
+    private void SetAlarm(long timeInMillis) {
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this,PublishMessage.class);
+        try {
+            if(deviceObject.getType().equals("fan"))
+                object.put("message","5");
+            else
+                object.put("message", "1024");
 
+        }catch (Exception e){}
+        intent.putExtra("topic",deviceObject.getCategory());
+        intent.putExtra("message",String.valueOf(object));
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,timeInMillis,AlarmManager.INTERVAL_DAY,pendingIntent);
+
+        Toast.makeText(getApplicationContext(),String.valueOf(object),Toast.LENGTH_SHORT).show();
+    }
 
 
 }
