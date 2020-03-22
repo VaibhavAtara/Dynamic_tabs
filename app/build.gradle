@@ -23,7 +23,9 @@ repositories {
     maven {
         //url "https://repo.eclipse.org/content/repositories/paho-releases/"
         url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
+
     }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -42,6 +44,7 @@ dependencies {
     compile('org.eclipse.paho:org.eclipse.paho.android.service:1.0.2') {
         exclude module: 'support-v4'
     }
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 
     //compile files('libs/org.eclipse.paho.android.service-1.1.1.jar')
     //compile files('libs/org.eclipse.paho.client.mqttv3-1.1.1.jar')

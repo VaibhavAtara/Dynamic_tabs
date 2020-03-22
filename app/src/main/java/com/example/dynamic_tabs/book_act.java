@@ -31,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class book_act extends AppCompatActivity{
 
@@ -71,13 +73,28 @@ public class book_act extends AppCompatActivity{
             object.put("ack_val", deviceObject.getAck_val());
 
         }catch(JSONException e){}
-
+    //#############################################################################################
         if(Integer.parseInt(deviceObject.getClose())<Integer.parseInt(deviceObject.getStart()))
             seconds = Integer.parseInt(deviceObject.getStart());
          else
              seconds = Integer.parseInt(deviceObject.getClose())-Integer.parseInt(deviceObject.getStart());
         int hours = (seconds%86400)/3600;
         int minutes = (((seconds%86400))%3600)/60;
+        long unixSeconds = seconds;
+// convert seconds to milliseconds
+        Date date = new java.util.Date(unixSeconds*1000L);
+// the format of your date
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+// give a timezone reference for formatting (see comment at the bottom)
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-5"));
+        String formattedDate = sdf.format(date);
+        //System.out.println(formattedDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        System.out.println(calendar.get(Calendar.DAY_OF_WEEK));
+        //boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+          //      cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     //######################################################################################
         type = (TextView)findViewById(R.id.booktitle);
         imageView = (ImageView)findViewById(R.id.bookimg);
