@@ -35,6 +35,7 @@ import java.util.Calendar;
 
 public class book_act extends AppCompatActivity{
 
+    int seconds;
     private TextView type,ack_val;
     ImageView imageView;
     Button button;
@@ -71,7 +72,10 @@ public class book_act extends AppCompatActivity{
 
         }catch(JSONException e){}
 
-        int seconds = Integer.parseInt(deviceObject.getClose())-Integer.parseInt(deviceObject.getStart());
+        if(Integer.parseInt(deviceObject.getClose())<Integer.parseInt(deviceObject.getStart()))
+            seconds = Integer.parseInt(deviceObject.getStart());
+         else
+             seconds = Integer.parseInt(deviceObject.getClose())-Integer.parseInt(deviceObject.getStart());
         int hours = (seconds%86400)/3600;
         int minutes = (((seconds%86400))%3600)/60;
     //######################################################################################
@@ -85,8 +89,10 @@ public class book_act extends AppCompatActivity{
         timePicker = (TimePicker)findViewById(R.id.timepicker);
         setAlarm = (Button)findViewById(R.id.setAlarm);
 
-
-        type.setText(deviceObject.getType()+"\nRunTime:"+hours+"hr "+minutes+" min");
+        if(Integer.parseInt(deviceObject.getClose())>Integer.parseInt(deviceObject.getStart()))
+            type.setText(deviceObject.getType()+"\nRunTime:"+hours+"hr "+minutes+" min");
+        else
+            type.setText(deviceObject.getType()+"\nDevice On:"+hours+"hr "+minutes+" min");
         imageView.setImageResource(deviceObject.getThumbnail());
 
         ShimmerFrameLayout shimmerFrameLayout = (ShimmerFrameLayout)findViewById(R.id.glare);
