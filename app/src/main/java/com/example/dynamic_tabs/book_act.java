@@ -71,6 +71,9 @@ public class book_act extends AppCompatActivity{
 
         }catch(JSONException e){}
 
+        int seconds = Integer.parseInt(deviceObject.getClose())-Integer.parseInt(deviceObject.getStart());
+        int hours = (seconds%86400)/3600;
+        int minutes = (((seconds%86400))%3600)/60;
     //######################################################################################
         type = (TextView)findViewById(R.id.booktitle);
         imageView = (ImageView)findViewById(R.id.bookimg);
@@ -83,7 +86,7 @@ public class book_act extends AppCompatActivity{
         setAlarm = (Button)findViewById(R.id.setAlarm);
 
 
-        type.setText(deviceObject.getType());
+        type.setText(deviceObject.getType()+"\nRunTime:"+hours+"hr "+minutes+" min");
         imageView.setImageResource(deviceObject.getThumbnail());
 
         ShimmerFrameLayout shimmerFrameLayout = (ShimmerFrameLayout)findViewById(R.id.glare);
