@@ -52,7 +52,7 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
-                            Intent intent = new Intent(BottomNavigation.this,Visualization.class);
+                            Intent intent = new Intent(BottomNavigation.this,PieChartVis.class);
                             startActivity(intent);
                           // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
                            // startActivity(intent);
