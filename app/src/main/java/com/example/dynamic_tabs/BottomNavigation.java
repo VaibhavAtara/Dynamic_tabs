@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mongodb.client.MongoDatabase;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -52,7 +53,7 @@ public class BottomNavigation extends AppCompatActivity {
                             selectedFragment=new Devices();
                             break;
                         case R.id.nav_settings:
-                            Intent intent = new Intent(BottomNavigation.this,BarChart1.class);
+                            Intent intent = new Intent(BottomNavigation.this,PieChartVis.class);
                             startActivity(intent);
                           // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://8e09b0c5.ngrok.io/stream"));
                            // startActivity(intent);
@@ -94,6 +95,8 @@ public class BottomNavigation extends AppCompatActivity {
 
         mqtt_class.execute(new Void[0]);
         client = mqtt_class.get_connection();
+        mqtt_class.connectMongoDataBase();
+
 
 
 

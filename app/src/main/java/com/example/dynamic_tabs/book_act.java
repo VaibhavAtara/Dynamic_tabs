@@ -81,11 +81,11 @@ public class book_act extends AppCompatActivity{
         int hours = (seconds%86400)/3600;
         int minutes = (((seconds%86400))%3600)/60;
         long unixSeconds = seconds;
-// convert seconds to milliseconds
+        // convert seconds to milliseconds
         Date date = new java.util.Date(unixSeconds*1000L);
-// the format of your date
+        // the format of your date
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-// give a timezone reference for formatting (see comment at the bottom)
+        // give a timezone reference for formatting (see comment at the bottom)
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-5"));
         String formattedDate = sdf.format(date);
         //System.out.println(formattedDate);
@@ -110,6 +110,8 @@ public class book_act extends AppCompatActivity{
             type.setText(deviceObject.getType()+"\nRunTime:"+hours+"hr "+minutes+" min");
         else
             type.setText(deviceObject.getType()+"\nDevice On:"+hours+"hr "+minutes+" min");
+
+
         imageView.setImageResource(deviceObject.getThumbnail());
 
         ShimmerFrameLayout shimmerFrameLayout = (ShimmerFrameLayout)findViewById(R.id.glare);

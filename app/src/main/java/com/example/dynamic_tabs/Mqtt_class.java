@@ -8,6 +8,13 @@ import android.util.JsonReader;
 import android.util.JsonWriter;
 import android.widget.Toast;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import org.bson.Document;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -20,6 +27,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONObject;
 
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
@@ -30,9 +38,13 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
     DeviceObject deviceObject=new DeviceObject();
     static MqttAndroidClient client;
 
+    static MongoCollection<Document> collection;
+
     public static MqttAndroidClient getClient() {
         return client;
     }
+
+    public static  MongoCollection getMongoDataBase() { return  collection; }
 
     public Mqtt_class(Context context) {
         this.context = context;
@@ -45,7 +57,16 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
         this.context = context;
     }
 
+    public void connectMongoDataBase(){
+        MongoClient mongoClient = MongoClients.create("mongodb://192.168.43.43:27017");
+        MongoDatabase database = mongoClient.getDatabase("mongotest");
+        collection = database.getCollection("devices");
+
+        //MongoCursor<Document> cur = collection.find().iterator();
+    }
+
     public MqttAndroidClient get_connection() {
+
         client = new MqttAndroidClient(context
                 , "tcp://tailor.cloudmqtt.com:13968", MqttClient.generateClientId());
         MqttConnectOptions options = new MqttConnectOptions();
@@ -85,6 +106,8 @@ public class Mqtt_class extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+
         final MqttAndroidClient client = new MqttAndroidClient(context
                 , "tcp://tailor.cloudmqtt.com:13968", MqttClient.generateClientId());
         MqttConnectOptions options = new MqttConnectOptions();

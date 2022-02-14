@@ -2,6 +2,7 @@ package com.example.dynamic_tabs;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -12,6 +13,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import org.bson.Document;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,6 +42,50 @@ public class PieChartVis extends AppCompatActivity {
        // pieChart.setDrawHoleEnabled(false);
         pieChart.setHoleColor(Color.BLUE);
         pieChart.setTransparentCircleRadius(61f);
+
+
+        //######################################################
+
+        Database_test database_test = new Database_test(getApplicationContext());
+        Cursor cursor = database_test.fetch_devices();
+
+        while(cursor.moveToNext())
+        {
+           /* DeviceObject deviceObject = new DeviceObject();
+            deviceObject.setId(cursor.getString(0));
+            deviceObject.setType(cursor.getString(1));
+            deviceObject.setTime(cursor.getString(2));
+            deviceObject.setTopic(cursor.getString(3));
+            deviceObject.setStart(cursor.getString(4));
+            deviceObject.setClose(cursor.getString(5));
+            deviceObject.setCommand(cursor.getString(6));
+            deviceObject.setSource(cursor.getString(7));
+            deviceObject.setWatt(cursor.getString(8));
+            deviceObject.setDuty(cursor.getString(9));
+            deviceObject.setThumbnail(cursor.getInt(10));*/
+
+
+        }
+
+        MongoCollection<Document> collection = Mqtt_class.getMongoDataBase();
+
+
+       // MongoCollection<Document> collection = database.getCollection("devices");
+        ArrayList<JSONObject> devices_list = new ArrayList<>();
+
+        MongoCursor<Document> cur = collection.find().iterator();
+
+        while (cur.hasNext()) {
+            Document doc = cur.next();
+            try {
+                JSONObject jsonObject = new JSONObject(doc.toJson());
+                devices_list.add(jsonObject);
+            }catch(Exception e){}
+        }
+        //######################################################
+
+
+
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
